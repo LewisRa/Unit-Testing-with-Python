@@ -21,7 +21,7 @@ assertEqual
 ```py
 class PhoneBookTest(unittest.TestCase): <-----Test SUITE
   def setUp(self) -> None:
-  self.phonebook = PhoneBook()
+   self.phonebook = PhoneBook()
   ```
 
 ## Vocabulary 

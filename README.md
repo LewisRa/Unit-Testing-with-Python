@@ -88,5 +88,7 @@ tearDown  gives you the opportunity to release any resources that you may have r
 
 ## What is unit testing for: 
 - Understand what you build
-- 
+- Design the units
+- Document the units
+- Regression protection
 

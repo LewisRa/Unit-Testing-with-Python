@@ -92,3 +92,16 @@ tearDown  gives you the opportunity to release any resources that you may have r
 - Document the units
 - Regression protection
 
+## Test Doubles
+
+- Dummy Object 
+- Test Stub
+- Test Spy
+- Mock Object 
+- Fake Object
+- Mock and spies are very similar. Unlike stubs, they make assertions about what hapened in the test case. Mock and spies will cause a test to fail while a stub will not. 
+
+3 kinds of Assert: 1) Return value or exception 2) State change - use a API to quer the new state 3) Method call
+
+*We can replace a File with StringIO. In a similar way, you can replace a normal database with a fast in-memory database, or a real web server with a lightweight web server. *
+

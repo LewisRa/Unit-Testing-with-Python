@@ -189,4 +189,10 @@ You can use the tmpdir fixture which will provide a temporary directory unique t
 ## yield
 
 ![](https://github.com/LewisRa/Unit-Testing-with-Python/blob/master/markdowmImages/yield.PNG)
-pytest runs the fixtures code as usualuntil it gets to the yield statement. Pytest then runs all test associated with this particular fixture. The test functions goes ahead and runs all the way through and finishes and then the code after the yield statement is executed which in this case cleans out the database
+
+pytest runs the fixtures code as usualuntil it gets to the yield statement. Pytest then runs all test associated with this particular fixture. The test functions goes ahead and runs all the way through and finishes and then the code after the yield statement is executed which in this case cleans out the database. This is a really clean approach as we can define what we need to do to set up a fixture alongside what we need to do to tear it down and clean it up afterwards and the yield statement acts as the
+divider between setup and teardown
+
+NOTE: With Yield, even if the test fails or something goes wrong in our test function that stops the test from finishing
+we still run that teardown code
+![](https://github.com/LewisRa/Unit-Testing-with-Python/blob/master/markdowmImages/yield2.PNG)

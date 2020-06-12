@@ -176,8 +176,13 @@ FAILED test_module.py::test_noop - assert 0
 ============================ 2 failed in 0.12s =============================
 ```
 
-**You can  see that the same (module-scoped) smtp_connection object was passed into the two test functions because pytest shows the incoming argument values in the traceback. As a result, the two test functions using smtp_connection run as quick as a single one because they reuse the same instance.**
+**You can  see that the same (module-scoped) smtp_connection object was passed into the ---two--- test functions because pytest shows the incoming argument values in the traceback. As a result, the two test functions using smtp_connection run as quick as a single one because they reuse the same instance.**
 
-## @pytest.fixture(scope="session") - the returned fixture value will be shared for all tests needing it
+### @pytest.fixture(scope="session") - the returned fixture value will be shared for all tests needing it
 
-## @pytest.fixture(scope="class") scope will invoke the fixture once per test class.
+### @pytest.fixture(scope="class") scope will invoke the fixture once per test class.
+
+## tmpdir
+
+You can use the tmpdir fixture which will provide a temporary directory unique to the test invocation, created in the base temporary directory.
+

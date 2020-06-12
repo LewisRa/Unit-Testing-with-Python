@@ -188,5 +188,5 @@ You can use the tmpdir fixture which will provide a temporary directory unique t
 
 ## yield
 
-pytest runs the fixtures code as usualuntil it gets to the yield statement. Pytest then runs all test associated with this particular fixture. The test functions goes ahead and runs all the way through and finishes and then the code after the yield statement is executed
-which in this case cleans out the database
+![](https://github.com/LewisRa/Unit-Testing-with-Python/blob/master/markdowmImages/yield.PNG)
+pytest runs the fixtures code as usualuntil it gets to the yield statement. Pytest then runs all test associated with this particular fixture. The test functions goes ahead and runs all the way through and finishes and then the code after the yield statement is executed which in this case cleans out the database

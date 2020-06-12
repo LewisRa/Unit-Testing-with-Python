@@ -105,3 +105,79 @@ tearDown  gives you the opportunity to release any resources that you may have r
 
 *We can replace a File with StringIO. In a similar way, you can replace a normal database with a fast in-memory database, or a real web server with a lightweight web server. *
 
+# PyTest
+
+## @pytest.fixture(scope="module")
+```py
+# content of conftest.py
+import pytest
+import smtplib
+
+
+@pytest.fixture(scope="module")
+def smtp_connection():
+    return smtplib.SMTP("smtp.gmail.com", 587, timeout=5)
+```
+
+```py
+# content of test_module.py
+
+def test_ehlo(smtp_connection):
+    response, msg = smtp_connection.ehlo()
+    assert response == 250
+    assert b"smtp.gmail.com" in msg
+    assert 0  # for demo purposes
+
+
+def test_noop(smtp_connection):
+    response, msg = smtp_connection.noop()
+    assert response == 250
+    assert 0  # for demo purposes
+```
+
+
+```diff
+$ pytest test_module.py
+=========================== test session starts ============================
+platform linux -- Python 3.x.y, pytest-5.x.y, py-1.x.y, pluggy-0.x.y
+cachedir: $PYTHON_PREFIX/.pytest_cache
+rootdir: $REGENDOC_TMPDIR
+collected 2 items
+
+test_module.py FF                                                    [100%]
+
+================================= FAILURES =================================
+________________________________ test_ehlo _________________________________
+
+- smtp_connection = <smtplib.SMTP object at 0xdeadbeef>
+
+    def test_ehlo(smtp_connection):
+        response, msg = smtp_connection.ehlo()
+        assert response == 250
+        assert b"smtp.gmail.com" in msg
+>       assert 0  # for demo purposes
+E       assert 0
+
+test_module.py:7: AssertionError
+________________________________ test_noop _________________________________
+
+- smtp_connection = <smtplib.SMTP object at 0xdeadbeef>
+
+    def test_noop(smtp_connection):
+        response, msg = smtp_connection.noop()
+        assert response == 250
+>       assert 0  # for demo purposes
+E       assert 0
+
+test_module.py:13: AssertionError
+========================= short test summary info ==========================
+FAILED test_module.py::test_ehlo - assert 0
+FAILED test_module.py::test_noop - assert 0
+============================ 2 failed in 0.12s =============================
+```
+
+**You can  see that the same (module-scoped) smtp_connection object was passed into the two test functions because pytest shows the incoming argument values in the traceback. As a result, the two test functions using smtp_connection run as quick as a single one because they reuse the same instance.**
+
+## @pytest.fixture(scope="session") - the returned fixture value will be shared for all tests needing it
+
+## @pytest.fixture(scope="class") scope will invoke the fixture once per test class.

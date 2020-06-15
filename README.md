@@ -196,3 +196,61 @@ divider between setup and teardown
 NOTE: With Yield, even if the test fails or something goes wrong in our test function that stops the test from finishing
 we still run that teardown code
 ![](https://github.com/LewisRa/Unit-Testing-with-Python/blob/master/markdowmImages/yield2.PNG)
+
+## pytest -m (Working with custom markers)
+
+You can “mark” a test function with custom metadata like this:
+```
+
+import pytest
+
+
+@pytest.mark.webtest
+def test_send_http():
+    pass  # perform some webtest test for your app
+
+
+def test_something_quick():
+    pass
+
+
+def test_another():
+    pass
+
+
+class TestClass:
+    def test_method(self):
+        pass
+```
+You can then restrict a test run to only run tests marked with webtest:
+```diff
+> $ pytest -v -m webtest
+=========================== test session starts ============================
+platform linux -- Python 3.x.y, pytest-5.x.y, py-1.x.y, pluggy-0.x.y -- $PYTHON_PREFIX/bin/python
+cachedir: $PYTHON_PREFIX/.pytest_cache
+rootdir: $REGENDOC_TMPDIR
+collecting ... collected 4 items / 3 deselected / 1 selected
+
+test_server.py::test_send_http PASSED                                [100%]
+
+===================== 1 passed, 3 deselected in 0.12s ======================
+```
+Or the inverse, running all tests except the webtest ones:
+
+```diff
+> $ pytest -v -m "not webtest"
+=========================== test session starts ============================
+platform linux -- Python 3.x.y, pytest-5.x.y, py-1.x.y, pluggy-0.x.y -- $PYTHON_PREFIX/bin/python
+cachedir: $PYTHON_PREFIX/.pytest_cache
+rootdir: $REGENDOC_TMPDIR
+collecting ... collected 4 items / 1 deselected / 3 selected
+
+test_server.py::test_something_quick PASSED                          [ 33%]
+test_server.py::test_another PASSED                                  [ 66%]
+test_server.py::TestClass::test_method PASSED                        [100%]
+
+===================== 3 passed, 1 deselected in 0.12s ======================
+```
+
+
+**https://docs.pytest.org/en/latest/example/markers.html**

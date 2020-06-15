@@ -254,3 +254,8 @@ test_server.py::TestClass::test_method PASSED                        [100%]
 
 
 **https://docs.pytest.org/en/latest/example/markers.html**
+
+##  pytest -s            #  -s   Show Output, do not caputure
+## pytest -vv            # Run tests in verbose mode(output with less words), useful for finding small differences in assertions. If you want your output to be less verbose, try pytest -q or pytest --quiet
+
+**https://mattscodecave.com/posts/pytest-cheatsheet.html**
